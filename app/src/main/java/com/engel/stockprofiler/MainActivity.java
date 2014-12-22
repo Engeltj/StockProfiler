@@ -1,5 +1,12 @@
 package com.engel.stockprofiler;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.ActivityGroup;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.LocalActivityManager;
+import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,11 +35,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener, OnTaskCompleted {
+public class MainActivity extends FragmentActivity {
     private GraphView graphView;
     private final String TAG = "MainActivity";
     private ArrayList<DayInfo> data;
-    private static final int REQUEST_CODE_FUNCTONE = 100;
     private TabHost mTabHost;
 
     @Override
@@ -40,7 +46,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         Log.d(TAG, "MainActivity: onCreate()");
         setContentView(R.layout.activity_main);
-
 
         mTabHost = (TabHost) findViewById(R.id.tabHost);
         mTabHost.setup();
@@ -54,17 +59,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTabHost.addTab(spec);
 
         Button btn = (Button) findViewById(R.id.btn_search);
-        btn.setOnClickListener(this);
+        //btn.setOnClickListener(this);
 
 
         System.out.println("onCreate saved: " + savedInstanceState);
 
-        if (savedInstanceState != null){
-            data = savedInstanceState.getParcelableArrayList("graphData");
-            EditText symbolField = (EditText) this.findViewById(R.id.editText);
-            symbolField.setText(savedInstanceState.getString("symbol"));
-            updateGraph();
-        }
+//        if (savedInstanceState != null){
+//            data = savedInstanceState.getParcelableArrayList("graphData");
+//            EditText symbolField = (EditText) this.findViewById(R.id.editText);
+//            symbolField.setText(savedInstanceState.getString("symbol"));
+//            updateGraph();
+//        }
 //        System.out.println("CREATED: " + savedInstanceState);
 //        if (savedInstanceState != null){
 //            data = savedInstanceState.getParcelableArrayList("graphData");
@@ -183,106 +188,33 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return true;
     }
 
-    @Override
     public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.btn_search:
-                EditText symbolField = (EditText) this.findViewById(R.id.editText);
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                v.requestFocus();
-                String symbol = symbolField.getText().toString();
-                System.out.println("Symbol: " + symbol);
-                DataCollector dataCollector = new DataCollector(this, symbol);
-                dataCollector.execute();
+        FragmentManager fm = this.getFragmentManager();
 
-                FrameLayout layout = (FrameLayout) findViewById(R.id.frameLayout);
-                layout.removeAllViews();
+        ClickHandler graphHandler = (ClickHandler) fm.findFragmentById(R.id.graph_fragment);
 
-
-                ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
-                progressBar.getIndeterminateDrawable().setColorFilter(0xFFFFF000, android.graphics.PorterDuff.Mode.MULTIPLY);
-                EditText message = new EditText(this);
-                message.setText("Drawing, please wait ..");
-                layout.addView(progressBar);
-
-                break;
-            default:
-                break;
+        if (graphHandler != null) {
+            graphHandler.onClick(this, v);
         }
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode==REQUEST_CODE_FUNCTONE){
-            if(resultCode==RESULT_OK){
-                Log.d("MainActivity", "Result");
-            }
-
-        }
+//        if(requestCode==REQUEST_CODE_FUNCTONE){
+//            if(resultCode==RESULT_OK){
+//                Log.d("MainActivity", "Result");
+//            }
+//
+//        }
 
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void updateGraph(){
-        FrameLayout layout = (FrameLayout) findViewById(R.id.frameLayout);
-        layout.removeAllViews();
 
-        if (data == null || data.size() == 0)
-            return;
-
-        GraphViewData[] graphData = new GraphViewData[data.size()];
-
-        double v=0;
-        for (int i=0; i<data.size(); i++) {
-            graphData[i] = new GraphViewData(data.get(i).getDate().getTime(), data.get(i).getPrice());
-        }
-
-        graphView = new LineGraphView(
-                this // context
-                , "" // heading
-        );
-
-        graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd/yy");
-                if (isValueX) {
-                    return sdf.format(new Date((long) value));
-                }
-                return null; // let graphview generate Y-axis label for us
-            }
-        });
-        graphView.setViewPort(data.get(data.size()-1).getDate().getTime() - 5*24*60*60*1000, 5*24*60*60*1000);
-        graphView.addSeries(new GraphViewSeries(graphData)); // data
-
-
-        graphView.setScrollable(true);
-        // optional - activate scaling / zooming
-        graphView.setScalable(true);
-
-        layout.addView(graphView);
-    }
-
-    @Override
-    public void onDataCollected(DataCollector dataCollector) {
-        this.data = dataCollector.getData();
-        ArrayList<String> rawData = dataCollector.getRawData();
-        String filename = "symbol_data.txt";
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            for (int i=0;i<rawData.size();i++){
-                outputStream.write(rawData.get(i).getBytes());
-            }
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        updateGraph();
-    }
 }
+
+
+
