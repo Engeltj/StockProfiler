@@ -1,6 +1,5 @@
-package com.engel.stocks;
+package com.engel.stockprofiler;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -11,12 +10,9 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -88,7 +84,7 @@ public class DataCollector extends AsyncTask<URL, Integer, Long> {
             reader.readLine(); //skip line #1
 
             while ((line = reader.readLine()) != null) {
-                rawData.add(0, line);
+                rawData.add(line);
             }
             data = parseData(rawData);
         }

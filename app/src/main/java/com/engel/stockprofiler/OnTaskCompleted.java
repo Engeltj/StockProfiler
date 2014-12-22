@@ -1,6 +1,4 @@
-package com.engel.stocks;
-
-import java.util.ArrayList;
+package com.engel.stockprofiler;
 
 /**
  * Created by Tim on 12/20/2014.

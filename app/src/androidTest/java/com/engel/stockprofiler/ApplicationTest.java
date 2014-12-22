@@ -1,4 +1,4 @@
-package com.engel.stocks;
+package com.engel.stockprofiler;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

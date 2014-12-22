@@ -2,145 +2,194 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivity"
-    android:id="@+id/stocks"
-    android:configChanges="orientation|screenSize">
+    android:id="@+id/activity_main">
 
-    <ScrollView
+    <TabHost
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:fillViewport="true"
-        android:padding="0dp">
+        android:id="@+id/tabHost"
+        android:layout_alignParentStart="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:padding="10dp">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/editText"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                style="@style/Base.TextAppearance.AppCompat.Body1"
-                android:editable="true"
-                android:hint="Symbol (ex: GOOGL)"
-                android:inputType="textCapCharacters"
-                android:enabled="true"
-                android:lines="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search"
-                android:id="@+id/btn_search"
-                android:layout_below="@+id/editText"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/editText"
-                android:layout_alignParentEnd="false" />
+            android:orientation="vertical">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"></TabWidget>
 
             <FrameLayout
+                android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="300dp"
-                android:id="@+id/frameLayout"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/btn_search"></FrameLayout>
+                android:layout_height="fill_parent">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/frameLayout"
-                android:id="@+id/timeline"
-                android:layout_alignStart="@+id/frameLayout"
-                android:columnCount="7"
-                android:rowCount="1"
-                android:layout_alignParentEnd="true">
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="1d"
-                    android:id="@+id/btn_1d"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="false" />
+                    <ScrollView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/scrollView"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:fillViewport="true"
+                        android:padding="0dp">
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="5d"
-                    android:id="@+id/btn_5d"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/btn_1d" />
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:padding="10dp">
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="1m"
-                    android:id="@+id/btn_1m"
-                    android:layout_row="0"
-                    android:layout_column="2"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/btn_5d" />
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/editText"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentEnd="true"
+                                style="@style/Base.TextAppearance.AppCompat.Body1"
+                                android:editable="true"
+                                android:hint="Symbol (ex: GOOGL)"
+                                android:inputType="textCapCharacters"
+                                android:enabled="true"
+                                android:lines="1" />
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="1y"
-                    android:id="@+id/btn_1y"
-                    android:layout_row="0"
-                    android:layout_column="4"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/btn_3m" />
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Search"
+                                android:id="@+id/btn_search"
+                                android:layout_below="@+id/editText"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignEnd="@+id/editText"
+                                android:layout_alignParentEnd="false" />
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="5y"
-                    android:id="@+id/btn_5y"
-                    android:layout_row="0"
-                    android:layout_column="5"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/btn_1y" />
+                            <FrameLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="300dp"
+                                android:id="@+id/frameLayout"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/btn_search"></FrameLayout>
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="3m"
-                    android:id="@+id/btn_3m"
-                    android:layout_row="0"
-                    android:layout_column="3"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/btn_1m" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/frameLayout"
+                                android:id="@+id/timeline"
+                                android:layout_alignStart="@+id/frameLayout"
+                                android:columnCount="7"
+                                android:rowCount="1"
+                                android:layout_alignParentEnd="true">
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="10y"
-                    android:id="@+id/btn_10y"
-                    android:layout_row="0"
-                    android:layout_column="6"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="false"
-                    android:layout_toEndOf="@+id/btn_5y" />
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="1d"
+                                    android:id="@+id/btn_1d"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentStart="false" />
 
-            </RelativeLayout>
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="5d"
+                                    android:id="@+id/btn_5d"
+                                    android:layout_row="0"
+                                    android:layout_column="1"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@+id/btn_1d" />
 
-        </RelativeLayout>
-    </ScrollView>
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="1m"
+                                    android:id="@+id/btn_1m"
+                                    android:layout_row="0"
+                                    android:layout_column="2"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@+id/btn_5d" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="1y"
+                                    android:id="@+id/btn_1y"
+                                    android:layout_row="0"
+                                    android:layout_column="4"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@+id/btn_3m" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="5y"
+                                    android:id="@+id/btn_5y"
+                                    android:layout_row="0"
+                                    android:layout_column="5"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@+id/btn_1y" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="3m"
+                                    android:id="@+id/btn_3m"
+                                    android:layout_row="0"
+                                    android:layout_column="3"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@+id/btn_1m" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:text="10y"
+                                    android:id="@+id/btn_10y"
+                                    android:layout_row="0"
+                                    android:layout_column="6"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="false"
+                                    android:layout_toEndOf="@+id/btn_5y" />
+
+                            </RelativeLayout>
+
+                            <requestFocus
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true" />
+
+                            <requestFocus
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true" />
+
+                        </RelativeLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"></LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 </RelativeLayout>
