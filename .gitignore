@@ -4,3 +4,7 @@
 /.idea/libraries
 .DS_Store
 /build
+<<<<<<< HEAD
+=======
+*.apk
+>>>>>>> 64f09eaad214f4e8f26b52aa7b4710072b7af85d
